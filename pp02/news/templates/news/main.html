@@ -6,6 +6,9 @@
     <title>News</title>
 </head>
 <body>
+    {% if category %}
+        <h1>{{category}}</h1>
+    {% endif %}
     {% for new in news %}
         <h1>{{new.title}}</h1>
         {{new.summary}}

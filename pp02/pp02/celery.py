@@ -10,6 +10,6 @@ app.autodiscover_tasks()
 app.conf.beat_schedule = {
     'update_news': {
         'task': 'news.tasks.update_news',
-        'schedule': 60.0,
+        'schedule': 300.0,
     }
 }
