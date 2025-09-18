@@ -10,8 +10,10 @@
         <h1>{{category}}</h1>
     {% endif %}
     {% for new in news %}
-        <h1>{{new.title}}</h1>
-        {{new.summary}}
+        <a href="{{new.get_absolute_url}}">
+            <h1>{{new.title}}</h1>
+            {{new.summary}}
+        </a>
     {% endfor %}
 </body>
 </html>

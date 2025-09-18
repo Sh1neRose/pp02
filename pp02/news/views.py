@@ -14,3 +14,10 @@ class news(View):
             'news': news,
             'category': category,
         })
+    
+class full_new(View):
+    def get(self, request, id):
+        new = get_object_or_404(News, id=id)
+        return render(request,'news/full_new.html',{
+            'new': new,
+        })
