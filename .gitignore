@@ -3,3 +3,5 @@ celerybeat-schedule
 migrations/
 
 __pycache__/
+
+.env

@@ -10,3 +10,10 @@ class Subscriber(models.Model):
         on_delete=models.CASCADE,
         related_name='subscriber'
         )
+    is_active = models.BooleanField(
+        default=True
+        )
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['email', 'category'], name='unique_subscriber'),
+        ]
