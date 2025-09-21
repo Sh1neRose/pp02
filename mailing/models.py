@@ -1,19 +1,13 @@
 from django.db import models
-from news.models import Category
 
 class Subscriber(models.Model):
     email = models.EmailField(
         max_length=66,
-        )
-    category = models.ForeignKey(
-        Category,
-        on_delete=models.CASCADE,
-        related_name='subscriber'
+        unique=True,
         )
     is_active = models.BooleanField(
-        default=True
+        default=False,
         )
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(fields=['email', 'category'], name='unique_subscriber'),
-        ]
+    
+    def __str__(self):
+        return self.email

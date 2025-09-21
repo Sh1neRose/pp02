@@ -1,3 +1,3 @@
-from .forms import SubscriberForm
+from .forms import SubscribeForm 
 def subscriberform(request):
-    return {'subscriberform': SubscriberForm}
+    return {'subscribeform': SubscribeForm}

@@ -6,9 +6,10 @@
     <title>{% block title %}Main{% endblock title %}</title>
 </head>
 <body>
+    <h2>Subscribe</h2>
     <form action='{% url "mailing:subscribe" %}' method="post">
         {% csrf_token %}
-        {{subscriberform}}
+        {{subscribeform}}
         <input type="submit">
     </form>
     {% block content %}
