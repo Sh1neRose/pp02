@@ -19,5 +19,6 @@ def send_mail_task(emails, new_id):
         message,
         settings.DEFAULT_FROM_EMAIL,
         emails,
+        fail_silently=False,
     )
 
