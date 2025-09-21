@@ -2,17 +2,23 @@ from celery import shared_task
 from django.core.mail import send_mail
 from django.conf import settings
 from news.models import News
+from django.urls import reverse
 
 @shared_task
 def send_mail_task(emails, new_id):
     new = News.objects.get(id=new_id)
+    new_url = f'{settings.SITE_URL}{new.get_absolute_url()}'
+    unsubscribe_url = f'{settings.SITE_URL}{reverse('mailing:unsubscribe')}'
     subject = f'Latest news in the category {new.category}'
     message = f'''
         Latest news
         {new}
         {new.summary}
-        {new.get_absolute_url()}
+        {new_url}
         {new.published_at}
+
+        If you want unsubscribe click the link below:
+        {unsubscribe_url}
     '''
     send_mail(
         subject,
@@ -22,3 +28,57 @@ def send_mail_task(emails, new_id):
         fail_silently=False,
     )
 
+@shared_task
+def confirm_subscribe_mail(email):
+    from django.core import signing
+    token = signing.dumps({'email': email})
+    confirm_url = f'{settings.SITE_URL}{reverse('mailing:subscribe_confirm', kwargs={'token': token,})}'
+    subject = 'Confirm Email'
+    message = f'''
+    Hello {email},
+
+    Please click the link below to confirm your email to receive the latest news:
+    {confirm_url}
+    '''
+
+    html_message = f'''
+    <h2>Please click the link below to confirm your email:</h2>
+
+    <a href='{confirm_url}'> {confirm_url}</a>
+    '''
+    send_mail(
+        subject,
+        message,
+        settings.DEFAULT_FROM_EMAIL,
+        [email],
+        fail_silently=False,
+        html_message=html_message,
+    )
+
+@shared_task
+def confirm_unsubscribe_mail(email):
+    from django.core import signing
+    from django.urls import reverse
+    token = signing.dumps({'email': email})
+    confirm_url = f'{settings.SITE_URL}{reverse('mailing:unsubscribe_confirm', kwargs={'token': token,})}'
+    subject = 'Unsubscribe Email'
+    message = f'''
+    Hello {email},
+
+    Please click the link below to unsubscribe your email:
+    {confirm_url}
+    '''
+
+    html_message = f'''
+    <h2>Please click the link below to unsubscribe your email:</h2>
+
+    <a href='{confirm_url}'> {confirm_url}</a>
+    '''
+    send_mail(
+        subject,
+        message,
+        settings.DEFAULT_FROM_EMAIL,
+        [email],
+        fail_silently=False,
+        html_message=html_message,
+    )
