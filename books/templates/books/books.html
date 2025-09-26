@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Books
+{% endblock title %}
+
+{% block content %}
+    {% if genre %}
+    <h1>{{genre}}</h1>
+    {% endif %}
+    {% for book in books %}
+    <a href={{book.get_absolute_url}}>
+        <h1>{{book.title}}</h1>
+        {{book.author}}
+    </a>
+    {% endfor %}
+{% endblock content %}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Full new
+{% endblock title %}
+
+{% block content %}
+    <h1>{{book.title}}</h1>
+    <h2>{{book.author}}</h2>
+    {{book.description}}
+    <br>
+    {{book.rating}}⭐
+    {{book.rating_count}}
+    <ul>
+        {% for genre in book.genres.all %}
+        <li>
+            {{genre.name}}
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock content %}
