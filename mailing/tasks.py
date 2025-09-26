@@ -1,21 +1,20 @@
 from celery import shared_task
 from django.core.mail import send_mail
 from django.conf import settings
-from news.models import News
+from books.models import Book
 from django.urls import reverse
 
 @shared_task
-def send_mail_task(emails, new_id):
-    new = News.objects.get(id=new_id)
-    new_url = f'{settings.SITE_URL}{new.get_absolute_url()}'
+def send_book_mail(emails, new_id):
+    book = Book.objects.get(id=new_id)
+    book_url = f'{settings.SITE_URL}{book.get_absolute_url()}'
     unsubscribe_url = f'{settings.SITE_URL}{reverse('mailing:unsubscribe')}'
-    subject = f'Latest news in the category {new.category}'
+    subject = f'Latest book'
     message = f'''
-        Latest news
-        {new}
-        {new.summary}
-        {new_url}
-        {new.published_at}
+        Latest book
+        {book}
+        {book.author}
+        {book_url}
 
         If you want unsubscribe click the link below:
         {unsubscribe_url}
