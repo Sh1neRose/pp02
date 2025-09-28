@@ -9,6 +9,10 @@ class Genre(models.Model):
     def __str__(self):
         return self.name
     
+    def get_absolute_url(self):
+        return reverse('books:books_by_genre', kwargs={'slug': self.slug})
+    
+    
 class Author(models.Model):
     goodreads_id = models.IntegerField(unique=True)
     name = models.CharField(max_length=100)
@@ -24,6 +28,8 @@ class Book(models.Model):
     rating_count = models.IntegerField(default=0)
     author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='books', null=True)
     genres = models.ManyToManyField(Genre, related_name='books')
+    # I dont want save images
+    img_url = models.URLField(max_length=500, blank=True, null=True)
 
     def __str__(self):
         return self.title
