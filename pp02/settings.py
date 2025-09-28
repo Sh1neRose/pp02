@@ -69,6 +69,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'mailing.context_processors.subscriberform',
+                'books.context_processors.searchform',
             ],
         },
     },
@@ -128,11 +129,14 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATICFILES_DIRS = BASE_DIR / 'static',
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Celery settings
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
 
 # Email settings
