@@ -11,7 +11,7 @@ headers = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36'
 }
 
-@shared_task(bind=True)
+@shared_task(bind=True, queue='books')
 def update_genres(self):
     url = urljoin(base, '/genres/list')
     lastpage=False
@@ -33,7 +33,7 @@ def update_genres(self):
         else:
             lastpage=True
 
-@shared_task(bind=True)
+@shared_task(bind=True, queue='books')
 def update_books(self):
     genres = Genre.objects.all()
     for genre in genres:
@@ -52,6 +52,8 @@ def update_books(self):
                 title = soup.find('h1', {'data-testid': 'bookTitle'}).get_text(strip=True)
                 rating = Decimal(soup.find('div', class_='RatingStatistics__rating').get_text(strip=True))
                 rating_count = int(re.sub(r'\D', '', soup.find('span', {'data-testid': 'ratingsCount'}).get_text(strip=True)))
+                img_conatiner = soup.find('img', {'role': 'presentation'})
+                img_url = img_conatiner.get('src')
                 description = soup.find('span', class_='Formatted').get_text(strip=True)
                 author_container = soup.find('span', {'data-testid': 'name'})
                 author_name=author_container.get_text(strip=True)
@@ -66,6 +68,7 @@ def update_books(self):
                     author=author,
                     rating=rating,
                     rating_count=rating_count,
+                    img_url=img_url,
                 )
                 book_genre_containers = soup.find_all('span', class_='BookPageMetadataSection__genreButton') 
                 for book_genre_container in book_genre_containers:

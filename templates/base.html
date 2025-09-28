@@ -1,18 +1,33 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Main{% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
 </head>
 <body>
-    <h2>Subscribe</h2>
-    <form action='{% url "mailing:subscribe" %}' method="post">
-        {% csrf_token %}
-        {{subscribeform}}
-        <input type="submit">
-    </form>
-    {% block content %}
-    {% endblock content %}
+    <header>
+        <div id='subscribe'>
+            Subscribe for getting info for latest books!
+            <form action="{% url "mailing:subscribe" %}" method="post" id='subscribe-form'>
+                {% csrf_token %}
+                {{subscribeform}}
+                <input type="submit" value='Subscribe'>
+            </form>
+        </div>
+        <form action="{% url "books:searchbook" %}" method='get' id='search'>
+            {{searchform}}
+            <input type="submit" value='Search'>
+        </form>
+        <a href="{% url "books:books" %}" id='back'>
+            Back    
+        </a>
+    </header>
+    <div id='content'>
+        {% block content %}
+        {% endblock content %}
+    </div>
 </body>
 </html>
