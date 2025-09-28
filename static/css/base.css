@@ -1,0 +1,92 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+header{
+    height: 70px;
+    background-color: rgb(40, 40, 40);
+    padding: 0 150px 0 150px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items:center;
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 1);
+    color: white;
+    justify-content: space-between;
+}
+
+#subscribe{
+    justify-self: start;
+    display: flex;
+    flex-direction: column;
+}
+
+#subscribe-form{
+    display: flex;
+    align-items:center;
+}
+
+#back{
+    font-size: 40px;
+    font-weight: 500;
+    text-decoration: none;
+    color: white;
+    justify-self: end;
+}
+
+#content{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-left: 200px;
+    margin-right: 200px;
+}
+
+#search{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.books{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.book{
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 200px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.book-image{
+    width: 200px;
+    object-fit: cover;
+}
+
+.book-page{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.rating-info{
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+}
+
+.genres{
+    display: flex;
+    flex-direction: column;
+}
+
+.genre{
+    color: black;
+}
