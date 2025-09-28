@@ -4,7 +4,7 @@ from django.conf import settings
 from books.models import Book
 from django.urls import reverse
 
-@shared_task
+@shared_task(queue='mailing')
 def send_book_mail(emails, new_id):
     book = Book.objects.get(id=new_id)
     book_url = f'{settings.SITE_URL}{book.get_absolute_url()}'
@@ -27,7 +27,7 @@ def send_book_mail(emails, new_id):
         fail_silently=False,
     )
 
-@shared_task
+@shared_task(queue='mailing')
 def confirm_subscribe_mail(email):
     from django.core import signing
     token = signing.dumps({'email': email})
@@ -54,7 +54,7 @@ def confirm_subscribe_mail(email):
         html_message=html_message,
     )
 
-@shared_task
+@shared_task(queue='mailing')
 def confirm_unsubscribe_mail(email):
     from django.core import signing
     from django.urls import reverse

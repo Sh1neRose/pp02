@@ -4,12 +4,14 @@ class SubscribeForm(forms.Form):
     email = forms.EmailField(
         required=True,
         max_length=66,
-        widget=forms.EmailInput(attrs={'placeholder': 'Your email'})
+        label='',
+        widget=forms.EmailInput(attrs={'placeholder': 'Your email...'})
         )
 
 class UnsubscribeForm(forms.Form):
     email = forms.EmailField(
         required=True,
         max_length=66,
-        widget=forms.EmailInput(attrs={'placeholder': 'Your email'})
+        label='',
+        widget=forms.EmailInput(attrs={'placeholder': 'Your email...'})
         )
