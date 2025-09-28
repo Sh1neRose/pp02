@@ -8,10 +8,12 @@
     {% if genre %}
     <h1>{{genre}}</h1>
     {% endif %}
-    {% for book in books %}
-    <a href={{book.get_absolute_url}}>
-        <h1>{{book.title}}</h1>
-        {{book.author}}
-    </a>
-    {% endfor %}
+    <div class='books'>
+        {% for book in books %}
+        <a href={{book.get_absolute_url}} class='book'>
+            {{book.title}}
+            <img src="{{book.img_url}}" class='book-image'>
+        </a>
+        {% endfor %}
+    </div>
 {% endblock content %}

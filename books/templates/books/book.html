@@ -5,17 +5,25 @@
 {% endblock title %}
 
 {% block content %}
-    <h1>{{book.title}}</h1>
-    <h2>{{book.author}}</h2>
-    {{book.description}}
-    <br>
-    {{book.rating}}⭐
-    {{book.rating_count}}
-    <ul>
-        {% for genre in book.genres.all %}
-        <li>
-            {{genre.name}}
-        </li>
-        {% endfor %}
-    </ul>
+    <div class='book-page'>
+        <div class='book'>
+            {{book.title}}
+            <img src="{{book.img_url}}" class='book-image'>
+            <div class='rating-info'>
+                {{book.rating}}⭐
+                {{book.rating_count}} ratings
+            </div>
+        </div>
+        <div class='description'>{{book.description}}</div>
+        <ul class='genres'>
+            <h2>Genres</h2>
+            {% for genre in book.genres.all %}
+            <li>
+                <a href={{genre.get_absolute_url}} class='genre'>
+                    {{genre.name}}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock content %}
